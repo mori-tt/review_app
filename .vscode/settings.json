@@ -1,0 +1,10 @@
+{
+  "[ejs]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "*.ejs": "html"
+  },
+  "prettier.documentSelectors": ["**/*.ejs"]
+}

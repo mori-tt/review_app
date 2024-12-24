@@ -15,10 +15,7 @@
         <div class="border-bottom mt-5 mb-5">
           <h1 class="display-4"><%= name %></h1>
           <p class="h3">
-            <span
-              class="rate-star"
-              style="--rate: <%= (score/5.00) * 100 %>%"
-            ></span>
+            <span class="rate-star" style="--rate: <%= (score/5.00) * 100 %>%"></span>
             <span><%= padding(score) %></span>
           </p>
         </div>
@@ -30,9 +27,7 @@
         <div class="row">
           <div class="col-md-8">
             <div>
-              <h2 class="border-bottom mt-5 mb-5 pb-2">
-                <i class="fa fa-fw fa-book"></i> 店舗情報
-              </h2>
+              <h2 class="border-bottom mt-5 mb-5 pb-2"><i class="fa fa-fw fa-book"></i> 店舗情報</h2>
               <table class="table table-bordered">
                 <colgroup>
                   <col class="bg-light" style="width: 10rem" />
@@ -73,22 +68,19 @@
             </div>
             <div>
               <div class="position-relative">
-                <h2 class="border-bottom mt-5 mb-5 pb-2">
-                  <i class="fa fa-fw fa-comments"></i> 口コミ
-                </h2>
+                <h2 class="border-bottom mt-5 mb-5 pb-2"><i class="fa fa-fw fa-comments"></i> 口コミ</h2>
                 <div class="position-absolute" style="right: 0; top: 0">
                   <a class="btn btn-outline-success" href="#">投稿する</a>
                 </div>
               </div>
               <div>
-                <!-- Shop Review -->
+                <% for (var review of reviews) { %> <% review.shop = id; %> <%- include("./review.ejs", review) %> <% }
+                %>
               </div>
             </div>
           </div>
           <div class="col-md-4">
-            <h2 class="border-bottom mt-5 mb-5 pb-2">
-              <i class="fa fa-fw fa-heart"></i> おススメのお店
-            </h2>
+            <h2 class="border-bottom mt-5 mb-5 pb-2"><i class="fa fa-fw fa-heart"></i> おススメのお店</h2>
             <!-- Recommends -->
           </div>
         </div>

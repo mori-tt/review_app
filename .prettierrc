@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "files": "*.ejs",
+      "options": {
+        "parser": "html",
+        "printWidth": 120,
+        "htmlWhitespaceSensitivity": "css",
+        "bracketSameLine": true,
+        "singleQuote": false
+      }
+    }
+  ]
+}
