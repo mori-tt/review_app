@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("../_share/metadata.ejs") %>
+    <title>検索結果</title>
+    <%- include("../_share/stylesheets.ejs") %>
+  </head>
+  <body>
+    <div class="outerframe">
+      <%- include("../_share/navbar.ejs") %>
+      <main class="container"><%= JSON.stringify(results) %></main>
+      <%- include("../_share/footer.ejs") %>
+    </div>
+    <%- include("../_share/javascripts.ejs") %>
+  </body>
+</html>

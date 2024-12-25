@@ -23,24 +23,10 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 // Set access log
 app.use(accesslogger());
 // Dynamic resource rooting
+app.use("/search", require("./routes/search.js"));
 app.use("/shops", require("./routes/shops.js"));
 app.use("/", require("./routes/index.js"));
 
-// app.use("/test", async (req, res, next) => {
-//   var data;
-//   const { MySQLClient, sql } = require("./lib/database/client.js");
-//   try {
-//     data = await MySQLClient.executeQuery(
-//       await sql("SELECT_SHOP_BASIC_BY_ID"),
-//       [1]
-//     );
-//     console.log(data);
-//   } catch (err) {
-//     next(err);
-//   }
-//   res.end("END");
-// });
-// Set application log
 app.use(applicationlogger());
 // Execute web app
 app.listen(PORT, () => {
