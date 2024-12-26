@@ -23,6 +23,20 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 // Set access log
 app.use(accesslogger());
 // Dynamic resource rooting
+// app.get("/test", async (req, res, next) => {
+//   const { MySQLClient } = require("./lib/database/client.js");
+//   var tran;
+//   try {
+//     tran = await MySQLClient.beginTransaction();
+//     await tran.executeQuery("UPDATE t_shop SET score=? WHERE id=?", [3.92, 1]);
+//     // throw new Error("Test exception");
+//     await tran.commit();
+//     res.end("OK");
+//   } catch (err) {
+//     await tran.rollback();
+//     next(err);
+//   }
+// });
 app.use("/search", require("./routes/search.js"));
 app.use("/shops", require("./routes/shops.js"));
 app.use("/", require("./routes/index.js"));
