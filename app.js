@@ -14,7 +14,6 @@ app.disable("x-powered-by");
 app.use((req, res, next) => {
   res.locals.moment = require("moment");
   res.locals.padding = require("./lib/math/math.js").padding;
-
   next();
 });
 // Static resource rooting
@@ -22,12 +21,14 @@ app.use(favicon(path.join(__dirname, "/public/favicon.ico")));
 app.use("/public", express.static(path.join(__dirname, "/public")));
 // Set access log
 app.use(accesslogger());
+// Set middleware
+app.use(express.urlencoded({ extended: true }));
 // Dynamic resource rooting
 app.use("/account", require("./routes/account.js"));
 app.use("/search", require("./routes/search.js"));
 app.use("/shops", require("./routes/shops.js"));
 app.use("/", require("./routes/index.js"));
-
+// Set application log
 app.use(applicationlogger());
 // Execute web app
 app.listen(PORT, () => {
