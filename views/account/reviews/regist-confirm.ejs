@@ -2,20 +2,20 @@
 <html lang="ja">
   <head>
     <%- include("../../_share/metadata.ejs") %>
-    <title>口コミの投稿</title>
+    <title>口コミの投稿確認</title>
     <%- include("../../_share/stylesheets.ejs")%>
   </head>
   <body>
     <div class="outerframe">
       <%- include("../../_share/navbar.ejs") %>
-      <main role="main" class="container">
+      <main class="container">
         <div class="border-bottom my-5">
           <h1>口コミの投稿</h1>
         </div>
-        <div>
-          <form action="/account/reviews/regist/confirm" method="POST">
-            <input type="hidden" id="shopId" name="shopId" value="<%= shopId %>" />
 
+        <div>
+          <form>
+            <input type="hidden" id="shopId" name="shopId" value="<%= shopId %>" />
             <div class="mb-3 row">
               <label for="shopName" class="col-sm-2 col-form-label">店舗</label>
               <div class="col-sm-10">
@@ -28,42 +28,63 @@
                   value="<%= shopName %>" />
               </div>
             </div>
-
             <div class="mb-3 row">
-              <label for="visit" class="col-sm-2 col-form-label">訪問日</label>
+              <label class="col-sm-2 col-form-label" for="visit">訪問日</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="visit" name="visit" value="<%= review.visit ?
-                moment(review.visit).format("YYYY/MM/DD"):"" %>" />
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  id="visit"
+                  name="visit"
+                  value="<%= review.visit ? moment(review.visit).format('YYYY/MM/DD') : '' %>" />
               </div>
             </div>
-
             <div class="mb-3 row">
-              <label for="score" class="col-sm-2 col-form-label">評価</label>
+              <label class="col-sm-2 col-form-label" for="score">評価</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control" id="score" name="score" value="<%= review.score %>" />
+                <input
+                  type="text"
+                  readonly
+                  class="form-control-plaintext"
+                  id="score"
+                  name="score"
+                  value="<%= review.score %>" />
               </div>
             </div>
-
             <div class="mb-3 row">
-              <label for="description" class="col-sm-2 col-form-label">本文</label>
+              <label class="col-sm-2 col-form-label" for="description">本文</label>
               <div class="col-sm-10">
-                <textarea readonly class="form-control" name="description" id="description" rows="5">
-                  <%= (review.description || "") %>
-                </textarea>
+                <textarea readonly class="form-control-plaintext" id="description" name="description" rows="5">
+<%= review.description %></textarea
+                >
               </div>
             </div>
-
             <div class="mb-3 row">
-              <div class="offset-sm-2 col-sm-10">
-                <input type="submit" class="btn btn-primary" value="修正" />
-                <input type="submit" class="btn btn-primary" value="登録" />
+              <div class="col-sm-2"></div>
+              <div class="col-sm-10">
+                <button
+                  type="submit"
+                  class="btn btn-secondary me-2"
+                  data-method="GET"
+                  data-action="/account/reviews/regist/<%= shopId %>">
+                  修正
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  data-method="POST"
+                  data-action="/account/reviews/regist/execute">
+                  登録
+                </button>
               </div>
             </div>
           </form>
         </div>
       </main>
-      <%- include("../../_share/footer.ejs")%>
+      <%- include("../../_share/footer.ejs") %>
     </div>
     <%- include("../../_share/javascripts.ejs") %>
+    <script type="text/javascript" src="/public/javascripts/regist.js"></script>
   </body>
 </html>

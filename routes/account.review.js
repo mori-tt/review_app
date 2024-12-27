@@ -4,7 +4,9 @@ const moment = require("moment");
 const DATE_FORMAT = "YYYY/MM/DD";
 
 var createReviewData = function (req) {
-  var body = req.body;
+  var body = req.body,
+    date;
+
   return {
     shopId: req.params.shopId,
     score: parseFloat(body.score),
@@ -20,14 +22,21 @@ var createReviewData = function (req) {
 router.get("/regist/:shopId(\\d+)", async (req, res, next) => {
   var shopId = req.params.shopId;
   var shop, shopName, review, results;
+
   try {
     results = await MySQLClient.executeQuery(
       await sql("SELECT_SHOP_BASIC_BY_ID"),
       [shopId]
     );
     shop = results[0] || {};
-    shopName = shop.name;
-    review = {};
+    shopName = shop.name || req.query.shopName;
+
+    review = {
+      visit: req.query.visit || "",
+      score: req.query.score || "",
+      description: req.query.description || "",
+    };
+
     res.render("./account/reviews/regist-form.ejs", {
       shopId,
       shopName,
@@ -38,9 +47,10 @@ router.get("/regist/:shopId(\\d+)", async (req, res, next) => {
   }
 });
 
-router.post("/regist/confirm", (req, res, next) => {
+router.post("/regist/confirm", (req, res) => {
   var review = createReviewData(req);
   var { shopId, shopName } = req.body;
+
   res.render("./account/reviews/regist-confirm.ejs", {
     shopId,
     shopName,
