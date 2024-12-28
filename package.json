@@ -15,6 +15,7 @@
   "dependencies": {
     "@garafu/mysql-fileloader": "^0.0.3",
     "cookie-parser": "^1.4.7",
+    "csrf": "^3.1.0",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-mysql-session": "^3.0.3",
