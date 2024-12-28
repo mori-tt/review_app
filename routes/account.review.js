@@ -140,7 +140,23 @@ router.post("/regist/execute", async (req, res, next) => {
   delete req.session._csrf;
   res.clearCookie("_csrf");
 
-  res.render("./account/reviews/regist-complete.ejs", { shopId });
+  res.redirect(`/account/reviews/regist/complete?shopId=${shopId}`);
+});
+
+router.get("/regist/complete", (req, res) => {
+  res.set({
+    "Cache-Control":
+      "no-store, no-cache, no-revalidate, proxy-revalidate, max-age=0",
+    Pragma: "no-cache",
+    Expires: "0",
+    "Surrogate-Control": "no-store",
+    "X-Frame-Options": "DENY",
+  });
+
+  res.render("./account/reviews/regist-complete.ejs", {
+    shopId: req.query.shopId,
+    layout: false,
+  });
 });
 
 module.exports = router;
