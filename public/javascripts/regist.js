@@ -13,13 +13,21 @@ var btnSubmit_onclick = function (event) {
   }
 
   form.method = submitButton.getAttribute("data-method");
+
+  // ボタンの二重押し防止
+  submitButton.disabled = true;
+
+  // フォームを直接送信
   form.submit();
 };
 
 var document_onready = function () {
   var submitButtons = document.querySelectorAll("button[type='submit']");
   submitButtons.forEach(function (button) {
-    button.addEventListener("click", btnSubmit_onclick);
+    button.addEventListener("click", function (e) {
+      e.preventDefault(); // デフォルトのsubmit動作を防止
+      btnSubmit_onclick(e);
+    });
   });
 };
 
