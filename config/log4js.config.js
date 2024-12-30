@@ -1,46 +1,36 @@
 const path = require("path");
 const LOG_ROOT_DIR =
   process.env.LOG_ROOT_DIR || path.join(__dirname, "../logs");
-const ENV = process.env.NODE_ENV || "development";
+
 module.exports = {
   appenders: {
     ConsoleLogAppender: {
       type: "console",
     },
-    ApplicationLogAppender: {
+    AppliationLogAppender: {
       type: "dateFile",
       filename: path.join(LOG_ROOT_DIR, "./application.log"),
-      pattern: "yyyy-MM-dd",
-      numBackups: 14,
-      compress: true,
-      maxLogSize: 5242880, // 5MB
+      pattern: "yyyyMMdd",
+      daysToKeep: 7,
     },
     AccessLogAppender: {
       type: "dateFile",
       filename: path.join(LOG_ROOT_DIR, "./access.log"),
-      pattern: "yyyy-MM-dd",
-      numBackups: 14,
-      compress: true,
-      maxLogSize: 5242880, // 5MB
+      pattern: "yyyyMMdd",
+      daysToKeep: 7,
     },
   },
   categories: {
     default: {
       appenders: ["ConsoleLogAppender"],
-      level: ENV === "production" ? "INFO" : "ALL",
+      level: "ALL",
     },
     application: {
-      appenders: [
-        "ApplicationLogAppender",
-        ...(ENV === "development" ? ["ConsoleLogAppender"] : []),
-      ],
-      level: ENV === "production" ? "ERROR" : "INFO",
+      appenders: ["AppliationLogAppender", "ConsoleLogAppender"],
+      level: "INFO",
     },
     access: {
-      appenders: [
-        "AccessLogAppender",
-        ...(ENV === "development" ? ["ConsoleLogAppender"] : []),
-      ],
+      appenders: ["AccessLogAppender", "ConsoleLogAppender"],
       level: "INFO",
     },
   },
