@@ -57,10 +57,21 @@ app.use(flash());
 app.use(...accesscontrol.initialize());
 
 // Dynamic resource rooting
-app.use("/account", require("./routes/account.js"));
-app.use("/search", require("./routes/search.js"));
-app.use("/shops", require("./routes/shops.js"));
-app.use("/", require("./routes/index.js"));
+app.use(
+  "/",
+  (() => {
+    const router = express.Router();
+    router.use((req, res, next) => {
+      res.setHeader("X-Frame-Options", "SAMEORIGIN");
+      next();
+    });
+    router.use("/account", require("./routes/account.js"));
+    router.use("/search", require("./routes/search.js"));
+    router.use("/shops", require("./routes/shops.js"));
+    router.use("/", require("./routes/index.js"));
+    return router;
+  })()
+);
 
 // Set application log
 app.use(applicationlogger());
