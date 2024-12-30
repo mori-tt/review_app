@@ -48,7 +48,7 @@ app.use(
     },
     secret: appconfig.security.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     name: "sid",
   })
 );
