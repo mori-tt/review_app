@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const appconfig = require("./config/application.config.js");
 const dbconfig = require("./config/mysql.config.js");
